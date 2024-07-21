@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+    position: relative;
+    top: -40px;
+    left: 10px;
+}
