@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, NavLink } from "react-router-dom";
 import "./App.css";
 import Home from "./components/home/Home";
 import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
@@ -9,8 +9,11 @@ import { FaStickyNote } from "react-icons/fa";
 import { GrMenu } from "react-icons/gr";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import Login from "./components/login/Login";
+import Upcoming from "./components/upcoming/Upcoming";
+import { useSelector } from "react-redux";
 
 function App() {
+  const todos = useSelector((store) => store.todosReducer.today);
   return (
     <div className="w-full flex font-sans gap-10 items-center">
       <main>
@@ -22,37 +25,70 @@ function App() {
           <h3 className="text-[20px] font-bold">Tasks</h3>
           <ul>
             <li>
-              <Link className="flex items-center gap-1" to={"/"}>
+              <NavLink
+                to={"/"}
+                className={({ isActive }) => (isActive ? "font-bold" : "")}
+              >
+                Start
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to={"/upcoming"}
+                style={{ display: "flex", alignItems: "center", gap: "4px" }}
+                className={({ isActive }) => (isActive ? "font-bold" : "")}
+              >
                 <MdOutlineKeyboardDoubleArrowRight />
                 Upcoming
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link className="flex items-center gap-1" to={"/today"}>
-                <GrMenu />
-                Today
-              </Link>
+              <NavLink
+                to={"/today"}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: "4px",
+                }}
+                className={({ isActive }) => (isActive ? "font-bold" : "")}
+              >
+                <div className="flex items-center gap-1">
+                  <GrMenu />
+                  Today
+                </div>
+                <span className="w-[25px] h-[25px] bg-gray-400 text-black rounded-[50%] text-center items-center">
+                  {todos.length}
+                </span>
+              </NavLink>
             </li>
             <li>
-              <Link className="flex items-center gap-1">
+              <NavLink
+                style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              >
                 <FaCalendar />
                 Calendar
-              </Link>
+              </NavLink>
             </li>
             <li>
-              <Link className="flex items-center gap-1">
+              <NavLink
+                style={{ display: "flex", alignItems: "center", gap: "4px" }}
+              >
                 <FaStickyNote />
                 Sticky Wall
-              </Link>
+              </NavLink>
             </li>
           </ul>
         </aside>
         <section></section>
       </main>
       <Routes>
-        <Route path="/*" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route element={<ProtectedRoute />}>
           <Route path="/today" element={<Today />} />
+        </Route>
+        <Route element={<ProtectedRoute />}>
+          <Route path="/upcoming" element={<Upcoming />} />
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
