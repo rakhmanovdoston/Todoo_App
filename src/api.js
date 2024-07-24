@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export const api =axios.create({
-    baseURL:import.meta.env.VITE_BASE_URL
+    baseURL:"https://todos-server-267u.onrender.com"
 })
