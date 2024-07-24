@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
-import { FaRegSquareCheck } from "react-icons/fa6";
 import { FaTrash } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addNewTodoUpcoming,
-  deleteUpcoming,
-  addUpcoming,
+  addNewTodoTomorrow,
+  addTomorrow,
+  deleteTodoTomorrow,
 } from "../../store/todosSlice";
 import { api } from "../../api";
-import Tomorrow from "../tomorrow/Tomorrow";
-import ThisWeek from "../thisWeek/Thisweek";
 
-const Upcoming = () => {
-  const todos = useSelector((store) => store.todosReducer.upcoming);
+const Tomorrow = () => {
+  const todos = useSelector((store) => store.todosReducer.tomorrow);
   const dispatch = useDispatch();
 
   const [text, setText] = useState("");
@@ -29,9 +26,9 @@ const Upcoming = () => {
       setLoading(true);
       setFetchError(null);
       try {
-        const response = await api.get(`/today`);
+        const response = await api.get(`/tomorrow`);
 
-        dispatch(addUpcoming(response.data));
+        dispatch(addTomorrow(response.data));
       } catch (error) {
         console.error(error);
         setFetchError(error.message);
@@ -54,8 +51,8 @@ const Upcoming = () => {
 
     try {
       setSubmitLoading(true);
-      await api.post("/today", newTodo);
-      dispatch(addNewTodoUpcoming(newTodo));
+      await api.post("/tomorrow", newTodo);
+      dispatch(addNewTodoTomorrow(newTodo));
     } catch (error) {
       console.error(error);
     } finally {
@@ -71,8 +68,8 @@ const Upcoming = () => {
   const deleteTodos = async (id) => {
     setDeleteLoading(true);
     try {
-      await api.delete(`/today/${id}`);
-      dispatch(deleteUpcoming(id));
+      await api.delete(`/tomorrow/${id}`);
+      dispatch(deleteTodoTomorrow(id));
     } catch (error) {
       console.error(error);
     } finally {
@@ -81,10 +78,9 @@ const Upcoming = () => {
   };
 
   return (
-    <main className="flex flex-col gap-4">
-      <h1 className="">Upcoming</h1>
-      <section className="w-[1000px] h-[300px]  border-2 border-solid border-black rounded-[40px] p-4">
-        <h1 className="text-[32px] font-sans font-bold mb-3">Today</h1>
+    <main>
+      <aside className="w-[500px] h-auto border-2 border-solid border-black rounded-[40px] p-4 mb-5">
+        <h1 className="text-[32px] font-sans font-bold mb-3">Tomorrow</h1>
         <form
           onSubmit={(e) => {
             addNewTodo(e.target.value);
@@ -113,7 +109,6 @@ const Upcoming = () => {
             ""
           )}
         </form>
-        <h3 className="font-bold mb-2"> Tasks to do: {todos.length}</h3>
         <ul className="flex flex-col gap-3">
           {loading ? (
             <p>loading ...</p>
@@ -136,13 +131,9 @@ const Upcoming = () => {
           )}
           {deleteLoading ? <b className="text-red-400">Delete Loading</b> : ""}
         </ul>
-      </section>
-      <div className="flex gap-5">
-        <Tomorrow />
-        <ThisWeek />
-      </div>
+      </aside>
     </main>
   );
 };
 
-export default Upcoming;
+export default Tomorrow;

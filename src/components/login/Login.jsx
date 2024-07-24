@@ -51,7 +51,7 @@ export default function Login() {
   }
 
   return (
-    <div className="">
+    <div className="w-[600px] h-[600px] bg-white">
       <h2>Log In</h2>
       <form onSubmit={handleSubmit}>
         <div className="">

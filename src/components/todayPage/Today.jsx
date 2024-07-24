@@ -147,7 +147,7 @@ const Today = () => {
               );
             })
           )}
-          {deleteLoading ? <b className="text-red-400">Delete Loading</b> : ""}
+          {deleteLoading ? <b className="text-red-500">Delete Loading</b> : ""}
         </ul>
         <h3 className="text-black font-bold">Done Tasks: {doneTasks.length}</h3>
         <ul className="w-[432px] text-white space-y-3">

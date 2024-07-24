@@ -23,7 +23,7 @@ const Home = () => {
       </article>
       <Link
         className="w-[220px] h-[40px] rounded-[10px] bg-green-500 text-[22px] font-semibold mt-10 text-center"
-        to={"/today"}
+        to={"/upcoming"}
       >
         Get Started
       </Link>
