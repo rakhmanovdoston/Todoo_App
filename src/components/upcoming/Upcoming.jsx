@@ -82,8 +82,8 @@ const Upcoming = () => {
 
   return (
     <main className="flex flex-col gap-4">
-      <h1 className="">Upcoming</h1>
-      <section className="w-[1000px] h-[300px]  border-2 border-solid border-black rounded-[40px] p-4">
+      <h1 className="text-[32px] font-bold">Upcoming</h1>
+      <section className="w-[1000px] h-auto  border-2 border-solid border-black rounded-[40px] p-4">
         <h1 className="text-[32px] font-sans font-bold mb-3">Today</h1>
         <form
           onSubmit={(e) => {

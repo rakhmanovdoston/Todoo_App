@@ -52,9 +52,12 @@ export default function Login() {
 
   return (
     <div className="w-[600px] h-[600px] bg-white">
-      <h2>Log In</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col gap-3 items-center w-full h-full justify-center"
+      >
+        <h2 className="text-[32px] font-bold text-center">Sign In</h2>
+        <div className="flex gap-3 pr-[80px]">
           <label htmlFor="userName">Username</label>
           <input
             type="text"
@@ -62,9 +65,10 @@ export default function Login() {
             id="userName"
             required
             onChange={(e) => setUserName(e.target.value)}
+            className="w-[300px] border-2 border-black border-solid rounded-md"
           />
         </div>
-        <div className="">
+        <div className="flex gap-4 pr-[80px]">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -72,12 +76,17 @@ export default function Login() {
             id="password"
             required
             onChange={(e) => setPassword(e.target.value)}
+            className="w-[300px] border-2 border-black border-solid rounded-md"
           />
         </div>
 
         {error && <p className="text-red-500">Error: {error.message}</p>}
-        <div>
-          <button type="submit" disabled={loading}>
+        <div className="items-center">
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-[300px] h-[50px] bg-green-500 text-white rounded-[10px]"
+          >
             {loading ? "Loading..." : "Submit"}
           </button>
         </div>
